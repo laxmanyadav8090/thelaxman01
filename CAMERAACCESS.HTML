@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Access Mobile Camera</title>
+</head>
+<body>
+  <h1>Access Mobile Camera</h1>
+  <video id="video" autoplay></video>
+  <button id="capture">Capture Photo</button>
+  <canvas id="canvas" style="display: none;"></canvas>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const captureButton = document.getElementById('capture');
+
+    // Access camera
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        video.srcObject = stream;
+      })
+      .catch(error => {
+        console.error('Error accessing camera:', error);
+      });
+
+    // Capture photo
+    captureButton.addEventListener('click', () => {
+      const context = canvas.getContext('2d');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const imageData = canvas.toDataURL('image/png');
+      console.log('Captured Image:', imageData);
+      alert('Photo captured! Check the console for image data.');
+    });
+<A HREF="CAMERAACCESS.HTML">SURPRISE IS HERE <BR> <BR>
+  </script>
+</body>
+</html>
